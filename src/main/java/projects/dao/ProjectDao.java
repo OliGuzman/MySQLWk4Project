@@ -112,7 +112,7 @@ public class ProjectDao extends DaoBase {
 					
 					try(ResultSet rs = stmt.executeQuery()) {
 						if(rs.next()) {
-							project = extract(rs,Project.class);
+							project = extract(rs, Project.class);
 						}
 					}
 				}
@@ -137,25 +137,6 @@ public class ProjectDao extends DaoBase {
 		}	
 	}
 	
-	//method will return Steps as Lists
-	private List<Step> fetchStepsForProject(Connection conn, Integer projectId) throws SQLException {
-		
-		String sql = "SELECT * FROM " + STEP_TABLE + "WHERE project_id = ?"; 
-				
-		try(PreparedStatement stmt = conn.prepareStatement(sql)) {
-			setParameter(stmt, 1, projectId, Integer.class);
-			
-			try(ResultSet rs = stmt.executeQuery()) {
-				List<Step> steps = new LinkedList<>();
-				
-				while(rs.next()) {
-					steps.add(extract(rs, Step.class));
-				}
-				
-				return steps; 
-			}
-		}		
-	}
 	
 	//method will return Categories as Lists
 	private List<Category> fetchCategoriesForProject(Connection conn, Integer projectId) throws SQLException {
@@ -181,11 +162,31 @@ public class ProjectDao extends DaoBase {
 			}
 		}
 	}
+	
+	//method will return Steps as Lists
+	private List<Step> fetchStepsForProject(Connection conn, Integer projectId) throws SQLException {
+		
+		String sql = "SELECT * FROM " + STEP_TABLE + " WHERE project_id = ?"; 
+				
+		try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+			setParameter(stmt, 1, projectId, Integer.class);
+			
+			try(ResultSet rs = stmt.executeQuery()) {
+				List<Step> steps = new LinkedList<>();
+				
+				while(rs.next()) {
+					steps.add(extract(rs, Step.class));
+				}
+				
+				return steps; 
+			}
+		}		
+	}
 
 	//method will return Materials as Lists
 	private List<Material> fetchMaterialsForProject(Connection conn, Integer projectId) throws SQLException {
 		
-		String sql = "SELECT * FROM " + MATERIAL_TABLE + "WHERE project_id = ?"; 
+		String sql = "SELECT * FROM " + MATERIAL_TABLE + " WHERE project_id = ?"; 
 		// @formatter:on
 		
 		try(PreparedStatement stmt = conn.prepareStatement(sql)) {

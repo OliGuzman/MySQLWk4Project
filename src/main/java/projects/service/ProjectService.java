@@ -7,6 +7,7 @@ import java.util.Optional;
 import projects.dao.ProjectDao;
 import projects.entity.Project;
 
+@SuppressWarnings("unused")
 public class ProjectService {                          //acts as a pass-through between main and DAO
 	
 	private ProjectDao projectDao = new ProjectDao(); 
@@ -21,7 +22,7 @@ public class ProjectService {                          //acts as a pass-through 
 		return projectDao.fetchAllProjects(); 
 	}
 
-	public Project fetchProjectByID(Integer projectId) {  //method retrieves a single project with all details
+	public Project fetchProjectById(Integer projectId) {  //method retrieves a single project with all details
 		
 		return projectDao.fetchProjectById(projectId).orElseThrow(() -> new NoSuchElementException(
 				"Project with project ID = " + projectId + " does not exist.")); 

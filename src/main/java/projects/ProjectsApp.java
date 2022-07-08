@@ -10,7 +10,8 @@ import projects.exception.DbException;
 import projects.service.ProjectService;
 
 public class ProjectsApp {
-		
+	
+	private Scanner scanner = new Scanner(System.in);               //scanner accepts user input from the console 
 	private ProjectService projectService = new ProjectService(); 
 	private Project curProject; 
 	
@@ -22,7 +23,7 @@ public class ProjectsApp {
 	);  
 	// @formatter:on
 	
-	private Scanner scanner = new Scanner(System.in);               //scanner accepts user input from the console 
+	
 	
 	public static void main(String[] args) {
 	
@@ -55,12 +56,12 @@ public class ProjectsApp {
 						break; 
 					
 					default: 
-						System.out.println("\n" + selection + " is not a valid selection.");
+						System.out.println("\n" + selection + " is not a valid selection. Try again!");
 						break; 
 					}
 			}
 			catch(Exception e) {
-				System.out.println("ERROR: " + e + " TRY AGAIN!");				
+				System.out.println("\nERROR: " + e + " Try again!");				
 			}
 		}		
 	}
@@ -72,7 +73,7 @@ public class ProjectsApp {
 		
 		curProject = null;                 //will unselect the currently selected project
 		
-		curProject = projectService.fetchProjectByID(projectId);
+		curProject = projectService.fetchProjectById(projectId);
 		
 	}
 
@@ -174,9 +175,6 @@ public class ProjectsApp {
 		
 		return input.isBlank() ? null : input.trim(); 
 		
-	}
-	
-	
-	
+	}		
 }
  
